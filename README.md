@@ -1,4 +1,4 @@
-# WHat is Evil Twin Attack?
+# What is Evil Twin Attack?
 
 An  **evil twin**  is a fraudulent  ("Wi-Fi")  access point that appears to be legitimate but is set up to eavesdrop on wireless communications.The evil twin is the  wireless LAN equivalent of the phising scam cyberattacks.
 This type of attack may be used to steal the passwords of unsuspecting users, either by monitoring their connections or by phishing, which involves setting up a fraudulent web site and luring people there.
