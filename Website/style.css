@@ -19,7 +19,7 @@
 }
 .index_form button {
   background: #00000063;
-  border: 1px solid white;
+  border: 1px solid black;
   height: 40px;
   width: 80%;
   color: white;
@@ -39,11 +39,11 @@
   margin: 10px;
 }
 .index_form .form_input_container label {
-  color: white;
+  color: black;
 }
 
 .index_form .form_input_container input {
-  border: 1px solid white;
+  border: 1px solid black;
   background: transparent;
   height: 30px;
   border-radius: 4px;
