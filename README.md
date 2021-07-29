@@ -40,3 +40,10 @@ Where WLANdapter is your wireless adapter
 2. Then the Attack puts a compatible adaper into monitoring under unix.
 3. Then search for WLAN beacons (AP's):
 	If the network has no protection - Malicious, otherwise this is a legit network.
+	
+## Running EvilTwin.py step by step	
+![Untitled6](https://user-images.githubusercontent.com/57714657/127468665-f859ca39-43f7-42f1-84b4-7b52f4d50c45.png)
+![Untitled7](https://user-images.githubusercontent.com/57714657/127468696-dd4df365-706e-406f-8b03-a65efe688bb0.png)
+![Untitled8](https://user-images.githubusercontent.com/57714657/127468719-bc3d7f1c-de21-4ecb-828f-0543e5f76a43.png)
+![Untitled9](https://user-images.githubusercontent.com/57714657/127468731-14f121de-6dbc-4c40-910f-fd7695659b2e.png)
+
