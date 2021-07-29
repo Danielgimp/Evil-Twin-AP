@@ -3,6 +3,12 @@
 An  **evil twin**  is a fraudulent  ("Wi-Fi")  access point that appears to be legitimate but is set up to eavesdrop on wireless communications.The evil twin is the  wireless LAN equivalent of the phising scam cyberattacks.
 This type of attack may be used to steal the passwords of unsuspecting users, either by monitoring their connections or by phishing, which involves setting up a fraudulent web site and luring people there.
 
+![Untitled1](https://user-images.githubusercontent.com/57714657/127459469-1a4799b2-069d-4a8b-adc3-323bffc55a9c.png)
+![Untitled2](https://user-images.githubusercontent.com/57714657/127461754-26ed4a4b-c81a-4bb1-8dbc-eb2b17784381.png)
+![Untitled3](https://user-images.githubusercontent.com/57714657/127461818-f819f784-7e4c-4264-b4be-6fc9db827dd5.png)
+![Untitled4](https://user-images.githubusercontent.com/57714657/127461863-bc2a4119-6a15-4773-99de-3b8780ef4d9b.png)
+![Untitled5](https://user-images.githubusercontent.com/57714657/127462417-d9afef2a-253e-43aa-9249-7305931f1f1c.png)
+
 # What tools were used?
 
 For initiationg the attack (EvilTwin.py)
